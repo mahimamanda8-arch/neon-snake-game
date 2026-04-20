@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=VT323&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "VT323", ui-monospace, SFMono-Regular, monospace;
+  --color-neon-cyan: #00f3ff;
+  --color-neon-magenta: #ff00ff;
+  --color-glitch-bg: #0a0a0b;
+}
+
+@layer base {
+  body {
+    @apply bg-glitch-bg text-white font-sans overflow-hidden cursor-crosshair;
+    background-image: 
+      linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+      linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 2px, 3px 100%;
+  }
+}
+
+@layer utilities {
+  .glitch-text {
+    text-shadow: 2px 2px var(--color-neon-magenta), -2px -2px var(--color-neon-cyan);
+    animation: glitch 1s infinite;
+  }
+
+  .glitch-border {
+    border: 1px solid var(--color-neon-cyan);
+    box-shadow: 0 0 10px var(--color-neon-cyan), inset 0 0 5px var(--color-neon-cyan);
+    animation: glitch-border 3s infinite;
+  }
+
+  .crt-overlay {
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    z-index: 100;
+    background-size: 100% 2px, 2px 100%;
+  }
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes glitch-border {
+  0%, 100% { border-color: var(--color-neon-cyan); box-shadow: 0 0 10px var(--color-neon-cyan); }
+  50% { border-color: var(--color-neon-magenta); box-shadow: 0 0 15px var(--color-neon-magenta); }
+  75% { border-color: #ffffff; box-shadow: 0 0 20px #ffffff; }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.scanline {
+  width: 100%;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  animation: scanline 8s linear infinite;
+}
+
